@@ -22,7 +22,7 @@ pub fn convert(html: &str) -> Result<String> {
         bail!(ErrorKind::HtmlParse(dom.errors.into_iter().map(|e| e.into_owned()).collect()));
     }
 
-    Ok(converter.markdown())
+    Ok(converter.into_markdown())
 }
 
 struct HtmlVisitor {
@@ -36,7 +36,8 @@ impl HtmlVisitor {
         }
     }
 
-    fn markdown(self) -> String {
+    /// Return the underlying converted Markdown.
+    fn into_markdown(self) -> String {
         self.markdown
     }
 
